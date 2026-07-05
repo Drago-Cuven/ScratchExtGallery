@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bouncing Ball Simulation</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #2c3e50;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        #container {
+            position: relative;
+            width: 600px;
+            height: 400px;
+            background-color: #ecf0f1;
+            border: 5px solid #34495e;
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        #ball {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background-color: #e74c3c;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <div id="ball"></div>
+    </div>
+
+    <script>
+        const ball = document.getElementById('ball');
+        const container = document.getElementById('container');
+
+        // Starting position of the ball
+        let posX = 50;
+        let posY = 50;
+
+        // Speed and direction factors (pixels per frame)
+        let speedX = 4;
+        let speedY = 3;
+
+        // Maximum boundaries for movement
+        const ballSize = 40; 
+        const maxWidth = 600 - ballSize;
+        const maxHeight = 400 - ballSize;
+
+        function updateAnimation() {
+            // Move position by current speed
+            posX += speedX;
+            posY += speedY;
+
+            // Collision detection with Left or Right wall
+            if (posX <= 0 || posX >= maxWidth) {
+                speedX = -speedX; // Reverse horizontal direction
+            }
+
+            // Collision detection with Top or Bottom wall
+            if (posY <= 0 || posY >= maxHeight) {
+                speedY = -speedY; // Reverse vertical direction
+            }
+
+            // Render new position on screen
+            ball.style.left = posX + 'px';
+            ball.style.top = posY + 'px';
+
+            // Loop the animation natively at 60 FPS
+            requestAnimationFrame(updateAnimation);
+        }
+
+        // Initialize the animation loop
+        requestAnimationFrame(updateAnimation);
+    </script>
+
+</body>
+</html>
